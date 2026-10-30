@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       code: o.code,
       name: o.name,
       // "Estandar a domicilio (1)" → "Estandar a domicilio"
-      detail: (o.detail ?? "").replace(/s*(d+)$/, ""),
+      detail: (o.detail ?? "").replace(/\s*\(\d+\)$/, ""),
       date: o.date ?? "",
       price: Number(o.price),
       // Días hábiles: sirven para elegir la opción más rápida.
