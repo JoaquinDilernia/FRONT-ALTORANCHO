@@ -26,7 +26,7 @@ export default async function GetawayLanding({ category }: { category: CategoryN
 
   return (
     <>
-      <section className="mx-auto max-w-[1440px] px-4 pb-10 pt-8 lg:px-8 lg:pt-12">
+      <section className="px-4 pb-10 pt-8 lg:px-8 lg:pt-12">
         <nav aria-label="Ubicación" className="text-[12.5px] text-ink-soft">
           <Link href="/" className="hover:text-ink">Inicio</Link>
           <span className="mx-2">/</span>
@@ -58,7 +58,7 @@ export default async function GetawayLanding({ category }: { category: CategoryN
 
       {trends.map((t, i) => (
         <section key={t.handle} className="mt-20">
-          <div className="mx-auto grid max-w-[1440px] gap-8 px-4 lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8">
+          <div className="grid gap-8 px-4 lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8">
             <Link href={`/c/${t.handle}`} className={`block aspect-[9/10] overflow-hidden bg-sand ${i % 2 ? "lg:order-2" : ""}`}>
               <img src={media(t.image, 1400)} alt="" loading="lazy" className="size-full object-cover" />
             </Link>
@@ -99,7 +99,7 @@ export default async function GetawayLanding({ category }: { category: CategoryN
         ]}
       />
 
-      <section className="mx-auto mt-20 max-w-[1440px] px-4 text-center lg:px-8">
+      <section className="mt-20 px-4 text-center lg:px-8">
         <Link href="/c/the-getaway-club?todo=1" className="inline-block rounded-full border border-ink px-8 py-3.5 text-[14px] hover:bg-ink hover:text-paper">
           Ver todos los productos de The Getaway Club.
         </Link>

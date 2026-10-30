@@ -39,7 +39,7 @@ export default function CategoryBar({ roots, photos = {} }: { roots: NavItem[]; 
   return (
     <>
       <nav aria-label="Categorías" data-sticky-bar className="relative bg-ink text-paper" onMouseLeave={leave}>
-        <div className="mx-auto flex h-11 max-w-[1440px] items-center px-4 lg:px-8">
+        <div className="flex h-11 items-center px-4 lg:px-8">
           <button className="flex items-center gap-2 text-[13px] lg:hidden" onClick={() => setDrawer(true)} aria-expanded={drawer}>
             <MenuIcon className="size-5" /> Categorías
           </button>
@@ -66,7 +66,7 @@ export default function CategoryBar({ roots, photos = {} }: { roots: NavItem[]; 
             className="absolute inset-x-0 top-full border-b border-line bg-paper text-ink shadow-[0_18px_30px_-20px_rgba(53,52,52,.35)]"
             onMouseEnter={() => enter(active.id)}
           >
-            <div className={`mx-auto grid max-w-[1440px] gap-10 px-8 py-8 ${activePhotos.length ? "grid-cols-[200px_1fr_auto]" : "grid-cols-[220px_1fr]"}`}>
+            <div className={`grid gap-10 px-8 py-8 ${activePhotos.length ? "grid-cols-[200px_1fr_auto]" : "grid-cols-[220px_1fr]"}`}>
               <div className="border-r border-line pr-8">
                 <p className="text-[26px] font-semibold lowercase leading-tight tracking-[-0.02em]">
                   {active.name.replace(/\.$/, "")}.

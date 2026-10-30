@@ -21,7 +21,7 @@ export default async function ComboPage({ params }: { params: Promise<{ slug: st
 
   return (
     <>
-      <div className="mx-auto max-w-[1440px] px-4 pt-6 lg:px-8">
+      <div className="px-4 pt-6 lg:px-8">
         <nav aria-label="Ubicación" className="mb-5 text-[12.5px] text-ink-soft">
           <Link href="/" className="hover:text-ink">Inicio</Link>
           <span className="mx-2">/</span>
@@ -32,7 +32,7 @@ export default async function ComboPage({ params }: { params: Promise<{ slug: st
         <ComboView combo={combo} initialPicks={defaultPicks(combo)} />
       </div>
       {others.length > 0 && (
-        <section className="mx-auto mt-20 max-w-[1440px] px-4 lg:px-8">
+        <section className="mt-20 px-4 lg:px-8">
           <h2 className="mb-6 text-[26px] font-semibold leading-none tracking-[-0.03em] md:text-[32px]">otros combos.</h2>
           <ul className="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4">
             {others.slice(0, 4).map((c) => <li key={c.id}><ComboCard combo={c} /></li>)}

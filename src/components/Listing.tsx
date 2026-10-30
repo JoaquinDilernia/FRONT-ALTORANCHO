@@ -106,7 +106,7 @@ export default async function Listing({
   const q = one(query.q);
 
   return (
-    <div className="mx-auto max-w-[1440px] px-4 pt-6 lg:px-8">
+    <div className="px-4 pt-6 lg:px-8">
       {breadcrumb && (
         <nav aria-label="Ubicación" className="text-[12.5px] text-ink-soft">
           {breadcrumb.map((b, i) => (
@@ -231,7 +231,7 @@ export default async function Listing({
               <Link href={basePath} className="mt-3 inline-block text-[13px] underline underline-offset-4">Quitar filtros</Link>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6">
               {res.data.map((p, i) => {
                 const slot = BANNER_AFTER.indexOf(i);
                 // Rota los banners entre páginas para que no se repitan siempre los mismos.

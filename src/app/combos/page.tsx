@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Combos — altorancho." };
 export default async function CombosPage() {
   const { pageTitle, pageIntro, combos } = await getCombosPage();
   return (
-    <div className="mx-auto max-w-[1440px] px-4 pt-6 lg:px-8">
+    <div className="px-4 pt-6 lg:px-8">
       <nav aria-label="Ubicación" className="text-[12.5px] text-ink-soft">
         <Link href="/" className="hover:text-ink">Inicio</Link>
         <span className="mx-2">/</span>

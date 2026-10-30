@@ -29,7 +29,7 @@ export default async function ShopTheRoom({
   if (!items.length) return null;
 
   return (
-    <section className="mx-auto mt-20 max-w-[1440px] px-4 lg:px-8">
+    <section className="mt-20 px-4 lg:px-8">
       <div
         className={`grid grid-cols-1 items-center gap-8 lg:gap-14 ${ratio < 1 ? "lg:grid-cols-2" : reverse ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]" : "lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]"} ${reverse ? "lg:[&>*:first-child]:order-2" : ""}`}
       >

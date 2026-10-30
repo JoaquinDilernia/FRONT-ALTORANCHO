@@ -31,14 +31,14 @@ export default async function ProductRail({
   if (!products.length) return null;
   const groups = await getVariantGroups();
   const rail = (
-    <div className="rail auto-cols-[46%] sm:auto-cols-[31%] lg:auto-cols-[calc((100%-64px)/5)]">
+    <div className="rail auto-cols-[46%] sm:auto-cols-[31%] lg:auto-cols-[calc((100%-64px)/5)] min-[1900px]:auto-cols-[calc((100%-80px)/6)]">
       {products.map((p) => (
         <ProductCard key={p.id} p={p} group={groups[String(p.id)]} sizes="(min-width:1024px) 20vw, 46vw" />
       ))}
     </div>
   );
   return (
-    <section className="mx-auto mt-16 max-w-[1440px] px-4 lg:px-8">
+    <section className="mt-16 px-4 lg:px-8">
       <SectionTitle title={title} href={href} />
       {autoLight ? <AutoLight>{rail}</AutoLight> : rail}
     </section>

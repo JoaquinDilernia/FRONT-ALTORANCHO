@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Locales — altorancho." };
 
 export default function LocalesPage() {
   return (
-    <div className="mx-auto max-w-[1440px] px-4 pt-10 lg:px-8">
+    <div className="px-4 pt-10 lg:px-8">
       <h1 className="text-[40px] font-semibold lowercase leading-none tracking-[-0.04em] md:text-[56px]">locales.</h1>
       <p className="mt-3 max-w-[52ch] text-[14.5px] text-ink-soft">
         Vení a ver los muebles y las lámparas en persona. Si querés confirmar el stock de algo antes de ir, escribinos por WhatsApp.

@@ -36,7 +36,7 @@ export default function RecentlyViewed({ exclude }: { exclude?: string }) {
   if (items.length < 2) return null;
 
   return (
-    <section className="mx-auto mt-16 max-w-[1440px] px-4 lg:px-8">
+    <section className="mt-16 px-4 lg:px-8">
       <div className="mb-6 flex items-end justify-between">
         <h2 className="text-[26px] font-semibold lowercase leading-none tracking-[-0.03em] md:text-[32px]">vistos recientemente.</h2>
         <button

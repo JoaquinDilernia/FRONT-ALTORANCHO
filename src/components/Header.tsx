@@ -66,7 +66,7 @@ export default async function Header() {
     <StickyHeader className="z-40 bg-paper">
       {/* Nivel 1: sitios del grupo + mensaje comercial */}
       <div className="bg-sand text-[12px]">
-        <div className="mx-auto flex h-9 max-w-[1440px] items-center justify-between gap-4 px-4 lg:px-8">
+        <div className="flex h-9 items-center justify-between gap-4 px-4 lg:px-8">
           <nav aria-label="Sitios" className="flex gap-5 overflow-x-auto whitespace-nowrap">
             {SITES.map((s) => (
               <a
@@ -93,7 +93,7 @@ export default async function Header() {
       </div>
 
       {/* Nivel 2: buscador, logo, cuenta + links destacados */}
-      <div className="mx-auto max-w-[1440px] px-4 lg:px-8">
+      <div className="px-4 lg:px-8">
         <div className="grid h-[76px] grid-cols-[1fr_auto_1fr] items-center gap-4">
           <div>
             <SearchBox />
@@ -124,7 +124,7 @@ export default async function Header() {
 
     {/* Beneficios debajo de la barra, fuera del header fijo: se van al bajar. */}
     <div className="bg-sand">
-      <ul className="mx-auto grid max-w-[1440px] grid-cols-1 divide-ink/10 text-center text-[12.5px] sm:grid-cols-3 sm:divide-x">
+      <ul className="grid grid-cols-1 divide-ink/10 text-center text-[12.5px] sm:grid-cols-3 sm:divide-x">
         {BENEFITS.map((b, i) => (
           <li key={b.title} className={`py-2.5 ${i ? "hidden sm:block" : ""}`}>
             <b className="font-semibold">{b.title}</b> <span className="text-ink-soft">{b.copy.charAt(0).toLowerCase() + b.copy.slice(1)}</span>

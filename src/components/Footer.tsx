@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer className="mt-24 border-t border-line">
       {/* Newsletter con la foto y el texto de la web actual */}
-      <div className="mx-auto grid max-w-[1440px] md:grid-cols-2">
+      <div className="grid md:grid-cols-2">
         <div className="aspect-[16/10] overflow-hidden bg-sand md:aspect-auto">
           <img src={media("a4031d72-newletter_summer", 1024)} alt="" loading="lazy" className="size-full object-cover" />
         </div>
@@ -35,7 +35,7 @@ export default function Footer() {
       </div>
 
       <div className="bg-sand">
-        <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_repeat(4,1fr)] lg:px-8">
+        <div className="grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_repeat(4,1fr)] lg:px-8">
           <div>
             <Link href="/" className="text-[28px] font-semibold tracking-[-0.04em]">altorancho.</Link>
             <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
@@ -97,7 +97,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-[1440px] px-4 lg:px-8">
+        <div className="px-4 lg:px-8">
           <div className="border-t border-ink/10 py-6">
             <p className="text-[12.5px] font-semibold">Medios de pago</p>
             <ul className="mt-3 flex flex-wrap gap-2">

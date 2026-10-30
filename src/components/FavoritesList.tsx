@@ -22,7 +22,7 @@ export default function FavoritesList() {
   return (
     <>
       <p className="mt-8 text-[13px]">{list.length} {list.length === 1 ? "producto" : "productos"}</p>
-      <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 xl:grid-cols-5">
+      <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 xl:grid-cols-5 min-[1900px]:grid-cols-6">
         {list.map((f) => (
           <li key={f.handle} className="group relative">
             <Link href={`/p/${f.handle}`} className="block">

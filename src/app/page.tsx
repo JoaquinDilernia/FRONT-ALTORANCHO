@@ -82,7 +82,7 @@ export default async function Home() {
         productsTitle="Las más elegidas"
       />
 
-      <section className="mx-auto mt-4 grid max-w-[1440px] grid-cols-2 gap-3 px-4 md:grid-cols-4 md:gap-4 lg:px-8">
+      <section className="mt-4 grid grid-cols-2 gap-3 px-4 md:grid-cols-4 md:gap-4 lg:px-8">
         {SPOTLIGHT.map((s) => (
           <Link key={s.href} href={s.href} className="group relative block aspect-[4/5] overflow-hidden bg-sand">
             <img src={media(s.image, 640)} alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
@@ -98,7 +98,7 @@ export default async function Home() {
         <VideoBlock id={VIDEOS.getaway.id} title={VIDEOS.getaway.title} />
       </div>
 
-      <section className="mx-auto mt-6 max-w-[1440px] px-4 lg:px-8">
+      <section className="mt-6 px-4 lg:px-8">
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
           {GETAWAY.map((t) => (
             <Link key={t.image} href={t.href} className="group block">
@@ -128,13 +128,13 @@ export default async function Home() {
 
       <ProductRail title="Sillas" href="/c/sillas2" products={outdoorChairs} />
 
-      <section className="mx-auto mt-20 max-w-[1440px] px-4 lg:px-8">
+      <section className="mt-20 px-4 lg:px-8">
         <BannerMedia banner={CATEGORY_HERO["silla-rey"]} variant="inline" />
       </section>
       <ProductRail title="Silla Rey" href="/c/silla-rey" products={rey} />
 
       {/* Secciones propias de esta versión */}
-      <section className="mx-auto mt-20 max-w-[1440px] px-4 lg:px-8">
+      <section className="mt-20 px-4 lg:px-8">
         <SectionTitle title="comprá por categoría." />
         <div className="rail auto-cols-[40%] sm:auto-cols-[24%] lg:auto-cols-[calc((100%-96px)/7)]">
           {TILES.map((t, i) => {
@@ -167,7 +167,7 @@ export default async function Home() {
         ]}
       />
 
-      <section className="mx-auto mt-20 max-w-[1440px] px-4 lg:px-8">
+      <section className="mt-20 px-4 lg:px-8">
         <SectionTitle title="sale." href="/c/sale" linkLabel="Ver todo SALE" />
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {sales.map(({ cat, products }) => {

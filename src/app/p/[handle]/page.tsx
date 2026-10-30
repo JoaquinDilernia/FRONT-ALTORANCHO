@@ -105,7 +105,7 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
       <TrackView
         item={{ handle: product.handle, name: product.name, image: product.images[0] ? sized(product.images[0].src, 240) : "", price: money(now) }}
       />
-      <div className="mx-auto max-w-[1440px] px-4 pt-6 lg:px-8">
+      <div className="px-4 pt-6 lg:px-8">
         <nav aria-label="Ubicación" className="mb-5 text-[12.5px] text-ink-soft">
           <Link href="/" className="hover:text-ink">Inicio</Link>
           {parentCat && (
@@ -132,7 +132,7 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
       </div>
 
       {combos.length > 0 && (
-        <section id="combos" className="mx-auto mt-16 max-w-[1440px] scroll-mt-6 px-4 lg:px-8">
+        <section id="combos" className="mt-16 scroll-mt-6 px-4 lg:px-8">
           <h2 className="mb-6 text-[26px] font-semibold leading-none tracking-[-0.03em] md:text-[32px]">llevalo en combo.</h2>
           <ul className="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4">
             {combos.map((c) => <li key={c.id}><ComboCard combo={c} /></li>)}
