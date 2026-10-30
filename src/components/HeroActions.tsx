@@ -17,7 +17,8 @@ export default function HeroActions({
   productsTitle: string;
 }) {
   return (
-    <div className="grid gap-6 bg-sand px-4 py-5 md:px-6 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-10 lg:px-8">
+    // minmax(0,1fr): sin esto el carrusel de productos estira la columna y la página se desborda en celular.
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-6 bg-sand px-4 py-5 md:px-6 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-10 lg:px-8">
       <div className="flex flex-wrap gap-2">
         <Link href={primary.href} className="rounded-full bg-ink px-5 py-2.5 text-[13.5px] font-medium text-paper hover:bg-ink/85">
           {primary.label}

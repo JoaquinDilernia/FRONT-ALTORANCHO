@@ -62,6 +62,7 @@ export default async function Header() {
   }
 
   return (
+    <>
     <StickyHeader className="z-40 bg-paper">
       {/* Nivel 1: sitios del grupo + mensaje comercial */}
       <div className="bg-sand text-[12px]">
@@ -117,18 +118,20 @@ export default async function Header() {
         </nav>
       </div>
 
-      <div className="bg-sand">
-        <ul className="mx-auto grid max-w-[1440px] grid-cols-1 divide-ink/10 text-center text-[12.5px] sm:grid-cols-3 sm:divide-x">
-          {BENEFITS.map((b, i) => (
-            <li key={b.title} className={`py-2.5 ${i ? "hidden sm:block" : ""}`}>
-              <b className="font-semibold">{b.title}</b> <span className="text-ink-soft">{b.copy.charAt(0).toLowerCase() + b.copy.slice(1)}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
       {/* Nivel 3: barra oscura de categorías con megamenú. Es lo único que queda fijo al bajar. */}
       <CategoryBar roots={roots} photos={photos} />
     </StickyHeader>
+
+    {/* Beneficios debajo de la barra, fuera del header fijo: se van al bajar. */}
+    <div className="bg-sand">
+      <ul className="mx-auto grid max-w-[1440px] grid-cols-1 divide-ink/10 text-center text-[12.5px] sm:grid-cols-3 sm:divide-x">
+        {BENEFITS.map((b, i) => (
+          <li key={b.title} className={`py-2.5 ${i ? "hidden sm:block" : ""}`}>
+            <b className="font-semibold">{b.title}</b> <span className="text-ink-soft">{b.copy.charAt(0).toLowerCase() + b.copy.slice(1)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    </>
   );
 }

@@ -30,7 +30,13 @@ export default function ProductView({ product, descriptionHtml, care, techSheet,
   const attrs = product.attributes ?? [];
   const first = product.variants.find(inStock) ?? product.variants[0];
   const [values, setValues] = useState<string[]>(first?.values ?? []);
-  const [imgIndex, setImgIndex] = useState(0);
+  // Arranca en la foto de la variante elegida de entrada (si tiene una propia).
+  // Las lámparas arrancan siempre en la 1ª foto: la apagada.
+  const [imgIndex, setImgIndex] = useState(() => {
+    if (isLighting(product)) return 0;
+    const idx = product.images.filter((i) => i.src !== techSheet).findIndex((g) => g.id === first?.image_id);
+    return Math.max(idx, 0);
+  });
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState<number | null>(null);
   const { addProduct } = useCart();
