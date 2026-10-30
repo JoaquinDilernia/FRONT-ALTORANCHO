@@ -11,6 +11,8 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  // Las fotos ya vienen redimensionadas del CDN de Tiendanube.
+  { rules: { "@next/next/no-img-element": "off" } },
   {
     ignores: [
       "node_modules/**",

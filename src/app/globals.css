@@ -1,26 +1,196 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tokens tomados de altorancho.com */
+@theme {
+  --color-ink: #353434;
+  --color-ink-soft: #6b6969;
+  --color-paper: #ffffff;
+  --color-sand: #f2efeb;
+  --color-line: #e3e3e3;
+  --color-walnut: #664d3a;
+  --color-sale: #b3261e;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-walnut);
+  outline-offset: 2px;
+}
+
+/* En la capa components para que las utilidades (lg:hidden, etc.) le ganen */
+@layer components {
+  /* Carruseles horizontales con scroll-snap, sin JS */
+  .rail {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Descripción que viene como HTML de TN */
+.prose-tn {
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 68ch;
+}
+.prose-tn p {
+  margin: 0 0 12px;
+}
+.prose-tn h5 {
+  font-weight: 600;
+  margin: 16px 0 8px;
+}
+.prose-tn ul {
+  list-style: disc;
+  padding-left: 18px;
+  margin: 0 0 12px;
+}
+.prose-tn * {
+  font-family: inherit !important;
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .chev {
+  transform: rotate(180deg);
+}
+
+/* Foto prendida de las lámparas: la muestra el botón general del listado */
+.lit-layer {
+  opacity: 0;
+}
+html[data-lights="on"] .lit-layer {
+  opacity: 1;
+}
+
+/* Home: las lámparas del primer bloque se prenden solas, una por una */
+[data-autolit] .lit-layer {
+  transition: opacity 0.9s ease;
+}
+[data-autolit="on"] .lit-layer {
+  opacity: 1;
+}
+[data-autolit] .rail > :nth-child(1) .lit-layer {
+  transition-delay: 0.15s;
+}
+[data-autolit] .rail > :nth-child(2) .lit-layer {
+  transition-delay: 0.37s;
+}
+[data-autolit] .rail > :nth-child(3) .lit-layer {
+  transition-delay: 0.59s;
+}
+[data-autolit] .rail > :nth-child(4) .lit-layer {
+  transition-delay: 0.81s;
+}
+[data-autolit] .rail > :nth-child(5) .lit-layer {
+  transition-delay: 1.03s;
+}
+[data-autolit] .rail > :nth-child(6) .lit-layer {
+  transition-delay: 1.25s;
+}
+[data-autolit] .rail > :nth-child(7) .lit-layer {
+  transition-delay: 1.47s;
+}
+[data-autolit] .rail > :nth-child(8) .lit-layer {
+  transition-delay: 1.69s;
+}
+[data-autolit] .rail > :nth-child(9) .lit-layer {
+  transition-delay: 1.91s;
+}
+[data-autolit] .rail > :nth-child(10) .lit-layer {
+  transition-delay: 2.13s;
+}
+[data-autolit] .rail > :nth-child(11) .lit-layer {
+  transition-delay: 2.35s;
+}
+[data-autolit] .rail > :nth-child(12) .lit-layer {
+  transition-delay: 2.57s;
+}
+
+/* Respuesta al tocar */
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  70% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+.heart-pop {
+  animation: heart-pop 0.38s ease-out;
+}
+@keyframes badge-bump {
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.badge-bump {
+  animation: badge-bump 0.3s ease-out;
+}
+
+/* Desplegables que abren suave (navegadores que lo soportan; el resto abre directo) */
+:root {
+  interpolate-size: allow-keywords;
+}
+details::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition: block-size 0.28s ease, content-visibility 0.28s allow-discrete;
+}
+details[open]::details-content {
+  block-size: auto;
+}
+.chev {
+  transition: transform 0.25s ease;
+}
+
+/* Texto corrido del top bar, como en altorancho.com */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
 }
