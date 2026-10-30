@@ -3,7 +3,8 @@ import { getCategoryTree, searchProducts, sized, type CategoryNode } from "@/lib
 import { BENEFITS, MARQUEE, MENU_PHOTOS, media } from "@/content/site";
 import CategoryBar from "./CategoryBar";
 import { FavCount } from "./Favorites";
-import { BagIcon, PinIcon, UserIcon } from "./Icons";
+import { CartButton } from "./Cart";
+import { PinIcon, UserIcon } from "./Icons";
 import SearchBox from "./SearchBox";
 import StickyHeader from "./StickyHeader";
 
@@ -104,7 +105,7 @@ export default async function Header() {
             {/* El login de clientes vive en Tiendanube: la Storefront API no lo expone. */}
             <a href="https://altorancho.com/account/login/" target="_blank" rel="noopener" className="hidden sm:inline-flex" title="Mi cuenta (abre altorancho.com)" aria-label="Mi cuenta"><UserIcon /></a>
             <FavCount />
-            <span className="inline-flex cursor-not-allowed opacity-60" title="El carrito no está conectado en esta prueba" aria-label="Carrito (no disponible)"><BagIcon /></span>
+            <CartButton />
           </div>
         </div>
         <nav aria-label="Destacados" className="hidden h-10 items-center justify-center gap-7 text-[13px] md:flex">

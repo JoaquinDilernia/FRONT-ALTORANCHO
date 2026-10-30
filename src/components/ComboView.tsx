@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { comboTotal, type Combo } from "@/lib/combos";
 import { money, sized } from "@/lib/tiendanube";
+import { useCart } from "@/lib/cart";
 
 const swatch = (colors: string[]) => {
   const [a, b] = colors;
@@ -17,6 +18,7 @@ export default function ComboView({ combo, initialPicks }: { combo: Combo; initi
   const gallery = combo.images?.length ? combo.images : chosen.filter(Boolean).map((o) => sized(o.image, 1024));
   const { was, now } = comboTotal(combo.items, picks, combo.discountPercent);
   const allAvailable = chosen.every((o) => o?.available);
+  const { addCombo } = useCart();
 
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-14">
@@ -99,12 +101,33 @@ export default function ComboView({ combo, initialPicks }: { combo: Combo; initi
           })}
         </ol>
 
-        <button disabled className="mt-6 w-full bg-ink py-3.5 text-[14px] font-medium text-paper disabled:cursor-not-allowed disabled:opacity-90">
+        <button
+          disabled={!allAvailable}
+          onClick={() =>
+            addCombo({
+              slug: combo.slug,
+              name: combo.name,
+              image: gallery[0] ?? "",
+              discountPercent: combo.discountPercent,
+              pieces: combo.items.map((it, i) => {
+                const o = chosen[i];
+                return {
+                  variantId: o.variantId,
+                  handle: o.handle,
+                  name: o.name,
+                  variant: o.colorName,
+                  image: sized(o.image, 240),
+                  price: Number(o.price),
+                  quantity: it.quantity,
+                };
+              }),
+            })
+          }
+          className="mt-6 w-full bg-ink py-3.5 text-[14px] font-medium text-paper transition-colors hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-40"
+        >
           Agregar combo al carrito
         </button>
-        <p className="mt-2 text-[12px] text-ink-soft">
-          {allAvailable ? "Carrito desactivado: esta prueba solo lee el catálogo." : "Alguna pieza no tiene stock en ese color."}
-        </p>
+        {!allAvailable && <p className="mt-2 text-[12px] text-sale">Alguna pieza no tiene stock en ese color.</p>}
 
         {combo.description && <p className="mt-8 whitespace-pre-line text-[14px] leading-relaxed">{combo.description}</p>}
       </div>

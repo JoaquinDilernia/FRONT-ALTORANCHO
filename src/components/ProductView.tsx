@@ -5,6 +5,7 @@ import Link from "next/link";
 import { inStock, isLighting, money, priceOf, sized, type Product } from "@/lib/tiendanube";
 import { swatchBackground, type Sibling } from "@/lib/variantGroups";
 import { FREE_SHIPPING_FROM } from "@/lib/store";
+import { useCart } from "@/lib/cart";
 import { BENEFITS, TRANSFER_DISCOUNT } from "@/content/site";
 import { FavButton } from "./Favorites";
 import { ChevronDown } from "./Icons";
@@ -32,6 +33,7 @@ export default function ProductView({ product, descriptionHtml, care, techSheet,
   const [imgIndex, setImgIndex] = useState(0);
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState<number | null>(null);
+  const { addProduct } = useCart();
 
   const variant = useMemo(
     () => product.variants.find((v) => v.values.every((x, i) => x === values[i])) ?? first,
@@ -234,15 +236,30 @@ export default function ProductView({ product, descriptionHtml, care, techSheet,
             </button>
           </div>
           <button
-            disabled
-            title="El carrito todavía no está conectado en esta prueba"
-            className="flex-1 bg-ink py-3 text-[14px] font-medium text-paper disabled:cursor-not-allowed disabled:opacity-90"
+            disabled={!variant || !available}
+            onClick={() => {
+              if (!variant) return;
+              const img = gallery.find((g) => g.id === variant.image_id) ?? gallery[0];
+              addProduct(
+                {
+                  variantId: variant.id,
+                  handle: product.handle,
+                  name: product.name,
+                  variant: attrs.length ? variant.values.join(" / ") : "",
+                  image: img ? sized(img.src, 240) : "",
+                  price: now,
+                },
+                qty,
+                { max: variant.stock_management ? variant.stock : null, before },
+              );
+              setQty(1);
+            }}
+            className="flex-1 bg-ink py-3 text-[14px] font-medium text-paper transition-colors hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Agregar al carrito
+            {available ? "Agregar al carrito" : "Sin stock"}
           </button>
           <FavButton fav={fav} className="border border-line px-3.5 hover:border-ink" />
         </div>
-        <p className="mt-2 text-[12px] text-ink-soft">Carrito desactivado: esta prueba solo lee el catálogo.</p>
 
         {comboCount > 0 && (
           <a href="#combos" className="mt-6 flex items-center justify-between bg-sand px-4 py-3 text-[13.5px] hover:bg-line">
