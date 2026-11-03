@@ -117,7 +117,7 @@ export default function CategoryBar({ roots, photos = {} }: { roots: NavItem[]; 
           <button className="absolute inset-0 bg-ink/40" aria-label="Cerrar menú" onClick={() => setDrawer(false)} />
           <div className="absolute inset-y-0 left-0 w-[86%] max-w-[380px] overflow-y-auto bg-paper p-5">
             <div className="mb-4 flex items-center justify-between">
-              <span className="text-xl font-semibold tracking-[-0.03em]">altorancho.</span>
+              <img src="/logo.png" alt="altorancho." width={800} height={136} className="h-[18px] w-auto" />
               <button onClick={() => setDrawer(false)} aria-label="Cerrar"><CloseIcon /></button>
             </div>
             <ul className="divide-y divide-line border-y border-line">

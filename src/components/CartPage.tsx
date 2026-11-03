@@ -143,7 +143,7 @@ function Checkout({ lines }: { lines: CartLine[] }) {
 
       {state.kind === "leaving" && (
         <div className="fixed inset-0 z-[80] flex flex-col items-center justify-center bg-paper text-center">
-          <p className="gate-in text-[34px] font-semibold tracking-[-0.04em]">altorancho.</p>
+          <img src="/logo.png" alt="altorancho." width={800} height={136} className="gate-in h-[30px] w-auto" />
           <p className="gate-in mt-3 text-[14px] text-ink-soft" style={{ animationDelay: "150ms" }}>Te llevamos al pago seguro…</p>
           <span className="mt-6 h-5 w-5 animate-spin rounded-full border-2 border-ink border-t-transparent" />
         </div>

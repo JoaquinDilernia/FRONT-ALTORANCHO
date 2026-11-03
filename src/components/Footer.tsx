@@ -37,7 +37,9 @@ export default function Footer() {
       <div className="bg-sand">
         <div className="grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_repeat(4,1fr)] lg:px-8">
           <div>
-            <Link href="/" className="text-[28px] font-semibold tracking-[-0.04em]">altorancho.</Link>
+            <Link href="/" className="inline-block" aria-label="altorancho. inicio">
+              <img src="/logo.png" alt="altorancho." width={800} height={136} className="h-[22px] w-auto" />
+            </Link>
             <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
               {SOCIAL.map((s) => (
                 <li key={s.label}><a href={s.href} {...ext} className="underline-offset-4 hover:underline">{s.label}</a></li>

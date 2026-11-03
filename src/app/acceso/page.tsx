@@ -25,10 +25,10 @@ export default async function AccesoPage({ searchParams }: { searchParams: Promi
 
         <div className="mt-auto max-w-xl pb-6 sm:pb-12">
           <h1
-            className="gate-in text-[64px] font-semibold leading-[0.9] tracking-[-0.05em] sm:text-[112px]"
+            className="gate-in"
             style={{ animationDelay: "250ms" }}
           >
-            altorancho.
+            <img src="/logo-blanco.png" alt="altorancho." width={800} height={136} className="h-[48px] w-auto sm:h-[84px]" />
           </h1>
           <p className="gate-in mt-5 max-w-sm text-[15px] leading-relaxed text-paper/80" style={{ animationDelay: "450ms" }}>
             Estamos armando una casa nueva. Si tenés la clave, pasá y mirá.

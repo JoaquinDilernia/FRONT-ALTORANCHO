@@ -98,8 +98,8 @@ export default async function Header() {
           <div>
             <SearchBox />
           </div>
-          <Link href="/" className="text-[30px] font-semibold tracking-[-0.04em] lg:text-[34px]" aria-label="altorancho. inicio">
-            altorancho.
+          <Link href="/" aria-label="altorancho. inicio">
+            <img src="/logo.png" alt="altorancho." width={800} height={136} className="h-[22px] w-auto lg:h-[28px]" />
           </Link>
           <div className="flex items-center justify-end gap-4 lg:gap-5">
             <Link href="/locales" className="hidden lg:inline-flex" title="Locales" aria-label="Locales"><PinIcon /></Link>
