@@ -19,5 +19,6 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!acceso|_next/|favicon.ico|robots.txt).*)"],
+  // Los archivos de imagen de public/ (logos) pasan sin clave: /acceso los necesita.
+  matcher: ["/((?!acceso|_next/|favicon.ico|robots.txt|.*\\.(?:png|svg|jpg|webp)$).*)"],
 };
