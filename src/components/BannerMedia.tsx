@@ -15,13 +15,17 @@ const TEXT_IN_IMAGE: Record<string, string> = {
 
 export default function BannerMedia({ banner, variant }: { banner: Banner; variant: "hero" | "inline" }) {
   const [playing, setPlaying] = useState(false);
-  const mobileImage = banner.image ? TEXT_IN_IMAGE[banner.image] : undefined;
-  const textInImage = Boolean(mobileImage);
+  const mobileImage = banner.imageMobile || (banner.image ? TEXT_IN_IMAGE[banner.image] : undefined);
+  const textInImage = banner.textInImage ?? Boolean(banner.image && TEXT_IN_IMAGE[banner.image]);
   const box =
     variant === "hero"
       ? "aspect-[4/5] sm:aspect-[16/9] lg:aspect-[3/1]"
       : "aspect-[4/5] sm:aspect-[16/7] lg:aspect-[3/1]";
-  const boxFinal = textInImage ? "aspect-[480/719] sm:aspect-[480/182]" : box;
+  const known = Boolean(banner.image && TEXT_IN_IMAGE[banner.image]);
+  // Una foto subida con el texto ya escrito se muestra entera, con su propia proporción.
+  const natural = textInImage && !known;
+  const boxFinal = known ? "aspect-[480/719] sm:aspect-[480/182]" : natural ? "" : box;
+  const imgCls = natural ? "block h-auto w-full" : "absolute inset-0 size-full object-cover";
 
   if (banner.video && playing) {
     return (
@@ -48,10 +52,10 @@ export default function BannerMedia({ banner, variant }: { banner: Banner; varia
       {img && mobileImage ? (
         <picture>
           <source media="(min-width: 640px)" srcSet={img.srcSet} sizes="100vw" />
-          <img src={media(mobileImage, 1024)} alt="" loading={variant === "hero" ? "eager" : "lazy"} className="absolute inset-0 size-full object-cover" />
+          <img src={media(mobileImage, 1024)} alt="" loading={variant === "hero" ? "eager" : "lazy"} className={imgCls} />
         </picture>
       ) : (
-        img && <img src={img.src} srcSet={img.srcSet} sizes="100vw" alt="" loading={variant === "hero" ? "eager" : "lazy"} className="absolute inset-0 size-full object-cover" />
+        img && <img src={img.src} srcSet={img.srcSet} sizes="100vw" alt="" loading={variant === "hero" ? "eager" : "lazy"} className={imgCls} />
       )}
       {banner.video && variant === "hero" && <AmbientVideo id={banner.video.id} />}
       {!textInImage && <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getCategoryTree, searchProducts, sized, type CategoryNode } from "@/lib/tiendanube";
-import { BENEFITS, MARQUEE, MENU_PHOTOS, media } from "@/content/site";
+import { MENU_PHOTOS, media } from "@/content/site";
+import { getContent } from "@/lib/content";
 import CategoryBar from "./CategoryBar";
 import { FavCount } from "./Favorites";
 import { CartButton } from "./Cart";
@@ -50,6 +51,9 @@ async function photosFor(root: NavItem): Promise<MenuPhoto[]> {
 }
 
 export default async function Header() {
+  const { promos } = await getContent();
+  const MARQUEE = promos.marquee;
+  const BENEFITS = promos.benefits;
   let roots: NavItem[] = [];
   let photos: Record<number, MenuPhoto[]> = {};
   try {
@@ -124,7 +128,7 @@ export default async function Header() {
 
     {/* Beneficios debajo de la barra, fuera del header fijo: se van al bajar. */}
     <div className="bg-sand">
-      <ul className="grid grid-cols-1 divide-ink/10 text-center text-[12.5px] sm:grid-cols-3 sm:divide-x">
+      <ul className={`grid grid-cols-1 divide-ink/10 text-center text-[12.5px] sm:divide-x ${["", "", "sm:grid-cols-2", "sm:grid-cols-3", "sm:grid-cols-4"][BENEFITS.length]}`}>
         {BENEFITS.map((b, i) => (
           <li key={b.title} className={`py-2.5 ${i ? "hidden sm:block" : ""}`}>
             <b className="font-semibold">{b.title}</b> <span className="text-ink-soft">{b.copy.charAt(0).toLowerCase() + b.copy.slice(1)}</span>

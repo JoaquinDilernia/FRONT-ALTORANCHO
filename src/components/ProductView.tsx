@@ -6,7 +6,8 @@ import { inStock, isLighting, money, priceOf, sized, type Product } from "@/lib/
 import { swatchBackground, type Sibling } from "@/lib/variantGroups";
 import { FREE_SHIPPING_FROM } from "@/lib/store";
 import { useCart } from "@/lib/cart";
-import { BENEFITS, TRANSFER_DISCOUNT } from "@/content/site";
+import { TRANSFER_DISCOUNT } from "@/content/site";
+import type { Promos } from "@/content/schema";
 import { FavButton } from "./Favorites";
 import { ChevronDown } from "./Icons";
 import Lightbox from "./Lightbox";
@@ -23,9 +24,10 @@ type Props = {
   techSheet: string | null;
   siblings: Sibling[];
   comboCount: number;
+  benefits: Promos["benefits"];
 };
 
-export default function ProductView({ product, descriptionHtml, care, techSheet, siblings, comboCount }: Props) {
+export default function ProductView({ product, descriptionHtml, care, techSheet, siblings, comboCount, benefits }: Props) {
   const current = siblings.find((s) => s.productId === String(product.id));
   const attrs = product.attributes ?? [];
   const first = product.variants.find(inStock) ?? product.variants[0];
@@ -309,7 +311,7 @@ export default function ProductView({ product, descriptionHtml, care, techSheet,
           )}
           <Accordion title="Envíos y cambios">
             <ul className="list-disc space-y-1.5 pl-4 text-[14px] leading-relaxed">
-              {BENEFITS.map((b) => (
+              {benefits.map((b) => (
                 <li key={b.title}>{b.title}: {b.copy.charAt(0).toLowerCase() + b.copy.slice(1)}.</li>
               ))}
               <li>

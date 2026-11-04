@@ -6,6 +6,7 @@ import { getVariantGroups, type Group } from "@/lib/variantGroups";
 import { getCombosForProduct } from "@/lib/combos";
 import ComboCard from "@/components/ComboCard";
 import ProductView from "@/components/ProductView";
+import { getContent } from "@/lib/content";
 import ProductRail from "@/components/Rail";
 import RecentlyViewed, { TrackView } from "@/components/RecentlyViewed";
 
@@ -128,6 +129,7 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
           techSheet={techSheetOf(product)}
           siblings={siblings}
           comboCount={combos.length}
+          benefits={(await getContent()).promos.benefits}
         />
       </div>
 

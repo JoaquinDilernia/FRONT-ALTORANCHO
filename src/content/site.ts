@@ -2,22 +2,13 @@
 // Es el lugar para cambiar banners y textos sin tocar los componentes.
 
 const MEDIA = "https://acdn-us.mitiendanube.com/stores/002/547/699/media";
-export const media = (id: string, w: 640 | 1024 | 1400 | 1920 = 1400) => `${MEDIA}/${id}/webp/${w}.webp`;
-export const mediaSet = (id: string) => ([640, 1024, 1400, 1920] as const).map((w) => `${media(id, w)} ${w}w`).join(", ");
+// Las fotos subidas desde /admin ya vienen con su URL completa y no tienen tamaños: se usan tal cual.
+const isUrl = (id: string) => id.includes("/");
+export const media = (id: string, w: 640 | 1024 | 1400 | 1920 = 1400) => (isUrl(id) ? id : `${MEDIA}/${id}/webp/${w}.webp`);
+export const mediaSet = (id: string) =>
+  isUrl(id) ? undefined : ([640, 1024, 1400, 1920] as const).map((w) => `${media(id, w)} ${w}w`).join(", ");
 
-// Barra superior con el mismo texto que corre en la web actual.
-export const MARQUEE = [
-  "3 cuotas sin interés",
-  "6 cuotas sin interés superando $300.000",
-  "12 cuotas sin interés superando $600.000",
-  "20% off por transferencia",
-];
-
-export const BENEFITS = [
-  { icon: "truck", title: "Envío gratis al AMBA", copy: "En compras mayores a $600.000" },
-  { icon: "card", title: "Cuotas sin interés", copy: "12 cuotas sin interés a partir de $600.000" },
-  { icon: "bank", title: "Pago por transferencia", copy: "20% off por transferencia bancaria" },
-] as const;
+// La cinta de mensajes y los beneficios se editan en /admin/promos (ver defaults.ts).
 
 export const TRANSFER_DISCOUNT = 0.2;
 
@@ -39,7 +30,11 @@ export type Banner = {
   title: string;
   copy?: string;
   href: string;
-  image?: string; // media id de TN
+  image?: string; // media id de TN o URL de una foto subida al panel
+  /** versión vertical para celular */
+  imageMobile?: string;
+  /** la foto ya trae el texto escrito: no se le pone título encima */
+  textInImage?: boolean;
   video?: Video;
   cta?: string;
 };

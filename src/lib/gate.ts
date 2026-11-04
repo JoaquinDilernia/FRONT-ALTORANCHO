@@ -8,3 +8,12 @@ export async function gateToken(password: string) {
   const hash = await crypto.subtle.digest("SHA-256", data);
   return Array.from(new Uint8Array(hash), (b) => b.toString(16).padStart(2, "0")).join("");
 }
+
+// Clave del panel /admin (ADMIN_PASSWORD). Sin la variable el panel queda cerrado.
+export const ADMIN_COOKIE = "ar_admin";
+
+export async function adminToken(password: string) {
+  const data = new TextEncoder().encode(`altorancho-admin:${password}`);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(hash), (b) => b.toString(16).padStart(2, "0")).join("");
+}

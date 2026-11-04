@@ -1,21 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { HELP_PAGES, helpPage } from "@/content/ayuda";
+import { getContent } from "@/lib/content";
 import { STORES, WHATSAPP } from "@/lib/store";
 import BenefitsStrip from "@/components/BenefitsStrip";
 
-export function generateStaticParams() {
-  return HELP_PAGES.map((p) => ({ slug: p.slug }));
+// Los textos se editan en /admin/ayuda.
+async function load(slug: string) {
+  const { ayuda } = await getContent();
+  return { pages: ayuda.pages, page: ayuda.pages.find((p) => p.slug === slug) };
+}
+
+export async function generateStaticParams() {
+  return (await getContent()).ayuda.pages.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const page = helpPage((await params).slug);
+  const { page } = await load((await params).slug);
   return { title: page ? `${page.title} — altorancho.` : "Ayuda — altorancho." };
 }
 
 export default async function HelpPageView({ params }: { params: Promise<{ slug: string }> }) {
-  const page = helpPage((await params).slug);
+  const { page, pages } = await load((await params).slug);
   if (!page) notFound();
 
   return (
@@ -27,7 +33,7 @@ export default async function HelpPageView({ params }: { params: Promise<{ slug:
       <div className="mt-6 grid gap-12 lg:grid-cols-[240px_1fr]">
         <nav aria-label="Ayuda" className="order-2 lg:order-1">
           <ul className="flex flex-wrap gap-2 lg:flex-col lg:gap-0 lg:border-t lg:border-line">
-            {HELP_PAGES.map((p) => (
+            {pages.map((p) => (
               <li key={p.slug} className="lg:border-b lg:border-line">
                 <Link
                   href={`/ayuda/${p.slug}`}
@@ -49,17 +55,22 @@ export default async function HelpPageView({ params }: { params: Promise<{ slug:
 
           {page.body?.length ? (
             <div className="prose-tn mt-10">
-              {page.body.map((s) => (
-                <section key={s.heading}>
-                  <h2>{s.heading}</h2>
-                  {s.text.map((t) => <p key={t}>{t}</p>)}
+              {page.body.map((s, i) => (
+                <section key={i}>
+                  {s.heading && <h2>{s.heading}</h2>}
+                  {s.text.map((t, j) => <p key={j}>{t}</p>)}
                 </section>
               ))}
             </div>
           ) : (
             <p className="mt-10 border-l-2 border-walnut bg-sand px-5 py-4 text-[14px] leading-relaxed">
-              El texto completo de esta página todavía no está importado en esta versión.{" "}
-              <a href={page.original} target="_blank" rel="noopener" className="underline underline-offset-4">Leelo en altorancho.com</a>.
+              El texto completo de esta página todavía no está cargado.
+              {page.original && (
+                <>
+                  {" "}
+                  <a href={page.original} target="_blank" rel="noopener" className="underline underline-offset-4">Leelo en altorancho.com</a>.
+                </>
+              )}
             </p>
           )}
 
