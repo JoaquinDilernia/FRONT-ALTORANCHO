@@ -13,17 +13,34 @@ const DATA_DIR = path.join(process.cwd(), "data");
 const LOCAL_FILE = path.join(DATA_DIR, "content.json");
 export const LOCAL_MEDIA_DIR = path.join(DATA_DIR, "media");
 
-export const usesFirebase = () => Boolean(process.env.FIREBASE_SERVICE_ACCOUNT);
+const env = process.env;
+const splitCreds = () => Boolean(env.FIREBASE_PROJECT_ID && env.FIREBASE_CLIENT_EMAIL && env.FIREBASE_PRIVATE_KEY);
+export const usesFirebase = () => Boolean(env.FIREBASE_SERVICE_ACCOUNT) || splitCreds();
+
+// La cuenta de servicio puede venir entera en FIREBASE_SERVICE_ACCOUNT (JSON o base64)
+// o separada en FIREBASE_PROJECT_ID / FIREBASE_CLIENT_EMAIL / FIREBASE_PRIVATE_KEY,
+// como la tienen cargada otros proyectos de Railway.
+function serviceAccount(): { projectId: string; clientEmail: string; privateKey: string } {
+  if (env.FIREBASE_SERVICE_ACCOUNT) {
+    const raw = env.FIREBASE_SERVICE_ACCOUNT.trim();
+    const json = JSON.parse(raw.startsWith("{") ? raw : Buffer.from(raw, "base64").toString("utf8"));
+    return { projectId: json.project_id, clientEmail: json.client_email, privateKey: json.private_key };
+  }
+  return {
+    projectId: env.FIREBASE_PROJECT_ID!,
+    clientEmail: env.FIREBASE_CLIENT_EMAIL!,
+    // Railway suele guardar los saltos de línea de la clave como "\n" literales.
+    privateKey: env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, "\n"),
+  };
+}
 
 async function firebase() {
   const { cert, getApps, initializeApp } = await import("firebase-admin/app");
   if (!getApps().length) {
-    const raw = process.env.FIREBASE_SERVICE_ACCOUNT!.trim();
-    // Acepta el JSON de la cuenta de servicio tal cual o en base64.
-    const json = JSON.parse(raw.startsWith("{") ? raw : Buffer.from(raw, "base64").toString("utf8"));
+    const account = serviceAccount();
     initializeApp({
-      credential: cert(json),
-      storageBucket: process.env.FIREBASE_STORAGE_BUCKET || `${json.project_id}.firebasestorage.app`,
+      credential: cert(account),
+      storageBucket: env.FIREBASE_STORAGE_BUCKET || `${account.projectId}.firebasestorage.app`,
     });
   }
   const [{ getFirestore }, { getStorage }] = await Promise.all([import("firebase-admin/firestore"), import("firebase-admin/storage")]);
